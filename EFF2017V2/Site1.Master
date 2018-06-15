@@ -1,0 +1,55 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="EFF2017V2.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+            height: 474px;
+        }
+        .auto-style2 {
+            width: 118px;
+            height: 330px;
+        }
+        .auto-style3 {
+            height: 330px;
+        }
+        .auto-style4 {
+            height: 75px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <table class="auto-style1">
+            <tr>
+                <td class="auto-style4" colspan="2" style="border-color: #000000; border-style: solid;"></td>
+            </tr>
+            <tr>
+                <td class="auto-style2" style="border-color: #000000; border-style: solid;">
+                    <asp:Menu ID="Menu1" runat="server">
+                        <Items>
+                            <asp:MenuItem NavigateUrl="~/Acceuil.aspx" Text="Acceuil" Value="Acceuil"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Innovations.aspx" Text="Innovations" Value="Innovations"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/AjouterInnovation.aspx" Text="Ajouter Innovation" Value="AjouterInnovation"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/Connexion.aspx" Selected="True" Text="Connexion" Value="Connexion"></asp:MenuItem>
+                        </Items>
+                    </asp:Menu>
+                </td>
+                <td class="auto-style3">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="border-color: #000000; border-style: solid;">&nbsp;</td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
