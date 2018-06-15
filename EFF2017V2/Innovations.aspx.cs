@@ -19,34 +19,16 @@ namespace EFF2017V2
         protected void LinkButton2_Command(object sender, CommandEventArgs e)
         {
             Session["num_innovation"] = e.CommandArgument.ToString();
-            //using (var con = new SqlConnection(@"Data Source=(localdb)\fact;Initial Catalog=TP2017v2;Integrated Security=True"))
-            //{
-            //    if (con.State == ConnectionState.Closed)
-            //        con.Open();
-            //    var cmd = new SqlCommand("select * from Certificat where num_innovation=@num", con);
-            //    cmd.Parameters.AddWithValue("@num", e.CommandArgument.ToString());
-            //    var dr = cmd.ExecuteReader();
-            //    var dt = new DataTable();
-            //    dt.Load(dr);
-            //    GridView2.DataSource = dt;
-            //    GridView2.DataBind();
-            //}
         }
 
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        protected void rb1_CheckedChanged(object sender, EventArgs e)
         {
-            //using (var con = new SqlConnection(@"Data Source=(localdb)\fact;Initial Catalog=TP2017v2;Integrated Security=True"))
-            //{
-            //    if (con.State == ConnectionState.Closed)
-            //        con.Open();
-            //    var cmd = new SqlCommand("select * from Certificat where num_innovation=@num", con);
-            //    cmd.Parameters.AddWithValue("@num", GridView1.SelectedRow.Cells[0].Text );
-            //    var dr = cmd.ExecuteReader();
-            //    var dt = new DataTable();
-            //    dt.Load(dr);
-            //    GridView2.DataSource = dt;
-            //    GridView2.DataBind();
-            //}
+            tx1.Text = "";
+        }
+
+        protected void rb2_CheckedChanged(object sender, EventArgs e)
+        {
+            tx1.Visible = btn1.Visible = rb2.Checked;
         }
     }
 }

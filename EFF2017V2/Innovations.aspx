@@ -2,7 +2,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="num_innovation" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+    <asp:RadioButton ID="rb1" Text="Tous" runat="server" AutoPostBack="True" Checked="True" GroupName="filterGroup" OnCheckedChanged="rb1_CheckedChanged" />
+    <asp:RadioButton ID="rb2" Text="N° Activité" runat="server" AutoPostBack="True" GroupName="filterGroup" OnCheckedChanged="rb2_CheckedChanged" />
+    <asp:TextBox ID="tx1" runat="server" Visible="False"></asp:TextBox>
+    <asp:Button ID="btn1" runat="server" Text="Rechercher" Visible="false" />
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="num_innovation" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
             <asp:BoundField DataField="num_innovation" HeaderText="num_innovation" ReadOnly="True" SortExpression="num_innovation" />
@@ -23,6 +27,7 @@
                     <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update"></asp:LinkButton>
                     &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel"></asp:LinkButton>
                 </EditItemTemplate>
+
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="Edit"></asp:LinkButton>
                     &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandArgument='<%# Eval("num_innovation") %>' CommandName="Select" OnCommand="LinkButton2_Command" Text="Select"></asp:LinkButton>
@@ -41,10 +46,13 @@
         <SortedDescendingCellStyle BackColor="#D4DFE1" />
         <SortedDescendingHeaderStyle BackColor="#15524A" />
     </asp:GridView>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:TP2017v2ConnectionString %>" DeleteCommand="DELETE FROM [Innovation] WHERE [num_innovation] = @num_innovation" InsertCommand="INSERT INTO [Innovation] ([num_innovation], [descriptif], [resume_inno], [num_activite]) VALUES (@num_innovation, @descriptif, @resume_inno, @num_activite)" SelectCommand="SELECT * FROM [Innovation]" UpdateCommand="UPDATE [Innovation] SET [descriptif] = @descriptif, [resume_inno] = @resume_inno, [num_activite] = @num_activite WHERE [num_innovation] = @num_innovation">
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:TP2017v2ConnectionString %>" DeleteCommand="DELETE FROM [Innovation] WHERE [num_innovation] = @num_innovation" InsertCommand="INSERT INTO [Innovation] ([num_innovation], [descriptif], [resume_inno], [num_activite]) VALUES (@num_innovation, @descriptif, @resume_inno, @num_activite)" SelectCommand="SELECT * FROM [Innovation]" UpdateCommand="UPDATE [Innovation] SET [descriptif] = @descriptif, [resume_inno] = @resume_inno, [num_activite] = @num_activite WHERE [num_innovation] = @num_innovation" EnableCaching="True" FilterExpression="num_activite = {0}">
         <DeleteParameters>
             <asp:Parameter Name="num_innovation" Type="Int32" />
         </DeleteParameters>
+        <FilterParameters>
+            <asp:ControlParameter ControlID="tx1" Name="numAct" PropertyName="Text" />
+        </FilterParameters>
         <InsertParameters>
             <asp:Parameter Name="num_innovation" Type="Int32" />
             <asp:Parameter Name="descriptif" Type="String" />
@@ -58,7 +66,11 @@
             <asp:Parameter Name="num_innovation" Type="Int32" />
         </UpdateParameters>
     </asp:SqlDataSource>
-    <asp:SqlDataSource ID="filter" runat="server"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="filter" runat="server" ConnectionString="<%$ ConnectionStrings:TP2017v2ConnectionString %>" SelectCommand="SELECT * FROM [Innovation] WHERE ([num_activite] = @num_activite)">
+        <SelectParameters>
+            <asp:SessionParameter Name="num_activite" SessionField="searchText" Type="Int32" />
+        </SelectParameters>
+    </asp:SqlDataSource>
     <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataKeyNames="num_certificat" DataSourceID="SqlDataSource2">
         <Columns>
             <asp:BoundField DataField="num_certificat" HeaderText="num_certificat" ReadOnly="True" SortExpression="num_certificat" />
